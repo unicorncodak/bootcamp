@@ -1,0 +1,34 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Project:</strong>
+  <%= @team.project_id %>
+</p>
+
+<p>
+  <strong>User:</strong>
+  <%= @team.user_id %>
+</p>
+
+<p>
+  <strong>Read:</strong>
+  <%= @team.read_access %>
+</p>
+
+<p>
+  <strong>Write:</strong>
+  <%= @team.write_access %>
+</p>
+
+<p>
+  <strong>Update:</strong>
+  <%= @team.update_access %>
+</p>
+
+<p>
+  <strong>Delete:</strong>
+  <%= @team.delete_access %>
+</p>
+
+<%= link_to 'Edit', edit_team_path(@team) %> |
+<%= link_to 'Back', teams_path %>

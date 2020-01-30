@@ -1,0 +1,72 @@
+<div id="page-wrapper">
+<div class="container-fluid">
+<div class="row bg-title">
+        <div class="col-lg-3 col-md-4 col-sm-4 col-xs-12">
+            <h4 class="page-title">Projects</h4> </div>
+        <div class="col-lg-9 col-sm-8 col-md-8 col-xs-12">
+            <ol class="breadcrumb">
+                <li><a href="<%= dashboard_projects_path()%>">Dashboard</a></li> | 
+                <li><a href="#" class="active">Projects</a></li>
+            </ol>
+        </div>
+        <!-- /.col-lg-12 -->
+    </div>
+<div class="row">
+<div class="col-md-12 col-lg-12 col-sm-12">
+    <div class="white-box">
+        <% if flash[:error] %>
+        <div class="alert alert-danger alert-dismissible fade show"><%= flash[:error] %>
+            <button type="button" class="close" data-dismiss="alert">&times;</button>
+        </div>
+        <% end %>
+        <% if flash[:access_error] %>
+          <div class="alert alert-danger">
+            <strong>Sorry!</strong> <%= flash[:access_error] %>
+          </div>
+        <% end %>
+        <div class="col-md-3 col-sm-4 col-xs-6 pull-right">
+        <a href="<%= new_project_path %>" class="btn btn-danger add pull-right btn-sm" role="button" style="color:#fff"><i class="fa fa-plus"></i> Add New</a>
+        </div>
+        <h3 class="box-title">All PROJECTS</h3>
+        <div class="table-responsive">
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th>#</th>
+                        <th>TITLE</th>
+                        <th>DESCRIPTION</th>
+                        <th>AUTHOR</th>
+                        <th>DATE CREATED</th>
+                        <th>ACTION</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <% 
+                    count = 1
+                    @projects.each do |p|
+                    %>
+                    <tr>
+                        <td><%= count %></td>
+                        <td class="txt-oflo"><%= p.title.titleize %></td>
+                        <td><%= p.description.slice(0,1).capitalize + p.description.slice(1..-1) %></td>
+                        <td class="txt-oflo"><%= p.user.username %></td>
+                        <td class="txt-oflo"><i><%= p.created_at.strftime(" %B %d, %Y") %></i></td>
+                        <td><span class="text-success">
+                        <%= link_to 'Show', project_path(p) %> | <%= link_to 'Edit', edit_project_path(p) %> | <%= link_to 'Delete', p, method: :delete, data: { confirm: 'Are you sure?' } %> 
+                        
+                        </span></td>
+                    </tr>
+                    <%
+                    count = count + 1
+                    end %>
+                    
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+</div>
+</div>
+<!-- /.container-fluid -->
+<footer class="footer text-center"> 2020 &copy; Basecamp1 brought to you by outsoureceglobal.com </footer>
+</div>

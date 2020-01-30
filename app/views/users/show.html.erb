@@ -1,0 +1,31 @@
+<div class="row">
+  <div class="col-sm-3">
+    <div style="width:100%; background:#fff; height:200px"></div>
+  </div>
+  <div class="col-sm-6">
+  <div style="width:100%; background:#fff; height:200px; padding:10px 10px">
+    <p>
+    <strong>Username:</strong>
+    <%= @user.username %>
+    </p>
+
+    <p>
+    <strong>Password:</strong>
+    <%= @user.password %>
+    </p>
+
+    <p>
+    <strong>Email:</strong>
+    <%= @user.email %>
+    </p>
+    <%= link_to 'Delete', delete_users_path(:id => @user.id), :class=>"btn btn-danger" %>
+    <% @user.admin_access == 0 ? text = "Make admin" : text = "Remove admin access" %>
+  <a class = "btn btn-primary" style="color:#fff" href="<%= role_users_path(:id => @user.id) %>"><%= text %></a>
+  </div>
+    
+  </div>
+  <div class="col-sm-3">
+  <%= link_to 'Edit', edit_user_path(@user) %>
+  
+  </div>
+</div>

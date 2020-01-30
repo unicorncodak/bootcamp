@@ -1,0 +1,73 @@
+<div id="page-wrapper">
+<div class="container-fluid">
+<div class="row bg-title">
+        <div class="col-lg-3 col-md-4 col-sm-4 col-xs-12">
+            <h4 class="page-title">Add User</h4> </div>
+        <div class="col-lg-9 col-sm-8 col-md-8 col-xs-12">
+            <ol class="breadcrumb">
+                <li><a href="/projects/<%= @project[0].id%>"><%= @project[0].title %></a></li> | 
+                <li><a href="#" class="active">New Project</a></li>
+            </ol>
+        </div>
+        <!-- /.col-lg-12 -->
+    </div>
+<div class="row">
+<div class="col-md-12 col-lg-12 col-sm-12">
+    <div class="white-box">
+        <h3 class="box-title"><%= @project[0].title %> team</h3>
+        <% if flash[:access_error] %>
+          <div class="alert alert-danger">
+            <strong>Sorry!</strong> <%= flash[:access_error] %>
+          </div>
+        <% end %>
+        <br>
+        <div class="table-responsive">
+        <p id="notice"><%= notice %></p>
+          <a href="<%= new_team_path(:id => @id) %>"  class="btn btn-success btn-sm" style="color:#fff"><i class="fa fa-plus"></i> New User</a>
+          <div class="table-responsive">
+            <table class="table">
+              <thead>
+                <tr>
+                  <th>#</th>
+                  <th>User</th>
+                  <th>Read</th>
+                  <th>Write</th>
+                  <th>Update</th>
+                  <th>Delete</th>
+                  <th colspan="3"></th>
+                </tr>
+              </thead>
+
+              <tbody>
+                <% 
+                  count = 1  
+                  @teams.each do |team| 
+                %>
+                  <tr>
+                    <td><%= count %></td>
+                    <td class="txt-oflo"><%= team.user.username %></td>
+                    <td><i class="fa fa-<%= team.read_access == 1 ? "check" : "times" %>"></i></td>
+                    <td><i class="fa fa-<%= team.write_access == 1 ? "check" : "times" %>"></i></td>
+                    <td><i class="fa fa-<%= team.update_access == 1 ? "check" : "times" %>"></i></td>
+                    <td><i class="fa fa-<%= team.delete_access == 1 ? "check" : "times" %>"></i></td>
+                    <td><%= link_to 'Edit', edit_team_path(team, user_id:team.user_id, project_id:team.project_id) %></td>
+                    <td><%= link_to 'Remove', team_path(team, project_id:team.project_id), method: :delete, data: { confirm: 'Are you sure?' } %></td>
+                  </tr>
+                <% 
+                count = count + 1
+                end %>
+              </tbody>
+            </table>
+          </div>
+        </div>
+    </div>
+</div>
+</div>
+</div>
+<!-- /.container-fluid -->
+<footer class="footer text-center"> 2020 &copy; Basecamp1 brought to you by outsoureceglobal.com </footer>
+</div>
+
+
+
+

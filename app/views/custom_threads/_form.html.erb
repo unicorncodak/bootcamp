@@ -1,0 +1,27 @@
+<%= form_with(model: custom_thread, local: true) do |form| %>
+  <% if custom_thread.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(custom_thread.errors.count, "error") %> prohibited this custom_thread from being saved:</h2>
+
+      <ul>
+        <% custom_thread.errors.full_messages.each do |message| %>
+          <li><%= message %></li>
+        <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= form.label :title %>
+    <%= form.text_field :title, class: "form-control" %>
+  </div>
+
+  <div class="field">
+    <%#= form.label :project_id %>
+    <%= form.hidden_field :project_id , value: id %>
+  </div>
+
+  <div class="actions">
+    <%= form.submit %>
+  </div>
+<% end %>

@@ -1,0 +1,65 @@
+
+<div id="page-wrapper">
+<div class="container-fluid">
+<div class="row bg-title">
+        <div class="col-lg-3 col-md-4 col-sm-4 col-xs-12">
+            <h4 class="page-title">All Tasks</h4> </div>
+        <div class="col-lg-9 col-sm-8 col-md-8 col-xs-12">
+            <ol class="breadcrumb">
+                <li><a href="/projects/<%= @project[0].id %>"><%= @project[0].title %></a></li> | 
+                <li><a href="#" class="active">New Project</a></li>
+            </ol>
+        </div>
+        <!-- /.col-lg-12 -->
+    </div>
+<div class="row">
+<div class="col-md-12 col-lg-12 col-sm-12">
+    <div class="white-box">
+        <h3 class="box-title">Tasks for <%= @project[0].title %></h3>
+        <div class="table-responsive">
+        <p id="notice"><%= notice %></p>
+        <%= link_to 'New Task', new_task_path(id:@id), class: "btn btn-success btn-sm", style: "color:#fff" %>
+        <div class = "table-reponsive">
+        <% if flash[:access_error] %>
+          <div class="alert alert-danger">
+            <strong>Sorry!</strong> <%= flash[:access_error] %>
+          </div>
+        <% end %>
+          <table class="table">
+            <thead>
+              <tr>
+                <th>#</th>
+                <th>Title</th>
+                <th colspan="3"></th>
+              </tr>
+            </thead>
+
+            <tbody>
+              <% 
+              count = 1
+              @tasks.each do |task| %>
+                <tr>
+                  <td><%= count %></td>
+                  <td><%= task.title %></td>
+                  <td><%= link_to 'Show', task %></td>
+                  <td><%= link_to 'Edit', edit_task_path(task, project_id: task.project_id) %></td>
+                  <td><%= link_to 'Delete', task_path(task.id, project_id: task.project_id), method: :delete, data: { confirm: 'Are you sure?' } %></td>
+                </tr>
+              <% 
+              count = count + 1
+              end %>
+            </tbody>
+          </table>
+        </div>
+        </div>
+    </div>
+</div>
+</div>
+</div>
+<!-- /.container-fluid -->
+<footer class="footer text-center"> 2020 &copy; Basecamp1 brought to you by outsoureceglobal.com </footer>
+</div>
+
+
+
+

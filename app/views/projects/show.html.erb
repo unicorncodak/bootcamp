@@ -1,0 +1,211 @@
+<div id="page-wrapper">
+<div class="container-fluid">
+<div class="row bg-title">
+        <div class="col-lg-3 col-md-4 col-sm-4 col-xs-12">
+            <h4 class="page-title">PROJECT PANE</h4> </div>
+        <div class="col-lg-9 col-sm-8 col-md-8 col-xs-12">
+            <ol class="breadcrumb">
+                <li><a href="<%= projects_path()%>">Projects</a></li> | 
+                <li><a href="#" class="active">New Project</a></li>
+            </ol>
+        </div>
+        <!-- /.col-lg-12 -->
+    </div>
+<div class="row">
+<div class="col-md-12 col-lg-12 col-sm-12" style="padding-bottom:10px">
+
+    <% if flash[:access_error] %>
+    <div class="alert alert-danger">
+    <strong>Sorry!</strong> <%= flash[:access_error] %>
+  </div>
+    <% end %>
+    <div class="panel-body pull-right">
+    <a href="/teams?id=<%=@project.id %>"  class="btn btn-danger btn-sm" style="color:#fff"><i class="fa fa-eye"></i> View Users</a>
+    <a href="/tasks?id=<%=@project.id %>"  class="btn btn-primary btn-sm" style="color:#fff"><i class="fa fa-eye"></i> View Tasks</a>
+   
+      <a href="<%= new_custom_thread_path(:id => @project.id) %>"  class="btn btn-success btn-sm"><i class="fa fa-plus"></i> New Thread</a>
+      <button class="btn btn-info btn-sm" data-remodal-target="modal"><i class="fa fa-paperclip"></i> Add attachement</button>
+      <a href="<%= edit_project_path(@project) %>" class="btn btn-primary btn-sm" style="color:#fff"><i class="fa fa-pencil-square-o"></i> Edit</a>
+    </div>
+    <div class="white-box">
+        <div class="container" >
+        <div class="jumbotron" style="background:#fff">
+        <div class="remodal" data-remodal-id="modal">
+          <button data-remodal-action="close" class="remodal-close"></button>
+          <h5>Attach a file to project</h5>
+          <%= form_with url: upload_projects_path(@project.id), local: true  do |form| %>
+          <div class="form-group">
+              <input type = "hidden" name = "projectId", value="<%= @project.id %>"/>
+              <%= form.file_field :files, class: "file", id:"file-demo", lang:"es", multiple: true %>
+          </div>
+          <% end %>
+        </div>
+        <div class="row">
+            <div class="col-md-8" align="justify">
+              <div class="panel panel-default">
+                <div class="panel-heading">
+                  <p id="notice"><%= notice %></p>
+                  <h3 class="panel-title font21"><%= @project.title %><h3 class="panel-title"></h3></h3>
+                </div>
+                <div class="panel-body">
+                  <h6 class="">
+                      <%= @project.description %>
+                  </h6>
+                </div>
+              </div>
+            </div>
+            <div class="col-md-4">
+              <div class="panel panel-default">
+                <div class="panel-heading">
+                  <h3 class="panel-title">List of users on project</h3>
+                </div>
+                <div class="panel-body">
+                  
+
+                <div class="panel panel-default">
+                      <div class="panel-body text-center">
+                        <div class="row">
+                          <div class="col-lg-2" ><img style="height:50px; width:50px; border-radius:100%" src="https://media-exp1.licdn.com/dms/image/C5603AQG_3p_uLgCLdA/profile-displayphoto-shrink_100_100/0?e=1584576000&v=beta&t=Cb_GRhXnnJ1ZPhO5hHy64AqbFhqnK-6jOCvn6SE9ilU" alt="user-img" class="img-circle"></div>
+                          <div class="col-lg-2"><img style="height:50px; width:50px; border-radius:100%" src="https://media-exp1.licdn.com/dms/image/C5603AQG_3p_uLgCLdA/profile-displayphoto-shrink_100_100/0?e=1584576000&v=beta&t=Cb_GRhXnnJ1ZPhO5hHy64AqbFhqnK-6jOCvn6SE9ilU" alt="user-img" class="img-circle"></div>
+                         
+                        </div>
+                      </div>
+                  </div>
+
+
+                </div>
+              </div>
+            </div>
+        
+        
+            </div>
+            <div class="row" style="overflow-x:auto">
+            <% @project.file.each do |f| %>
+              <% if [".jpg", ".jpeg", ".png"].include? f.filename.extension_with_delimiter %>
+                <%= link_to rails_blob_path(f, disposition: :attachment), target: "_blank" do %>
+                <div class="col-md-2">
+                <img style="height:100px; margin-bottom: 10px" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAOEAAADhCAMAAAAJbSJIAAAAHlBMVEX09PTh4eH19fXg4ODk5OTw8PDs7Ozq6uru7u7n5+dZKxXMAAAELUlEQVR4nO2dWXKtMAwFwQMX9r/hB9RNMOARhCTyTv/kIxVQl4kHYZmuAwAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAADgAsZ03o9eA6OfwyH360bXWz30kyd2HHvbq8LaibQdJ2V+C7Yf6RSdQsEZOxApGqWCsyJNK5qPVsEZCsHOS1tksBNFI2rsZTY8gaG0QxaCRjRj0ITS4/wvW0judguaKbjaID1f+xLEZG8/psZtV6OeKF3GbH2DHW9fbDN0WgTn/j0wvBtVYEjSM9MAwxZgKAMMW4ChDLyGxoQ/eGA0NMYPk3O9c9PH80nyGZo1A/e9l3WEiZM8DxmeZm3GH/Ib1jFNXZna0AzntTFZcigPj2E8f2M/HIoshqkEFYsih+Fu7b9XZOhvWNow4bdw85YVMBjmkqg0Kb4sHG2YaUKaFF+W5w3zefDnO5vnR/wwPxXh8YwOw1Oaz4Pbmzct8ryhLxhe+EdsivRxw/RgePW2821a/uZ5w8ILt/auZp7Ct8Qqb9g6/17XKA3BKnhK227yswirjvZtPc22yqwN912jxW6bQGW87xrx93mCuoBfNWs7JkKqIuaYeWcf04brn3ey1ITMsXrK7F9oWD1Ft+pUxPyeFXB8L1I5aJYsRnKbTcM9E5utyleQzUTVz2eSu8mKYb8km5jbLleI+xUZ4cJ+wHzgr8jqFzY85iNnfPe0vJn5uVff8mamuKMzGzrn27Xu9+3a4Bu2JddsWc3Erv4NaeWe3HTw6t9yV246Tkev3bB6V3UyfOWGDdvGU/HrNmzbFx8X0GzYvPE/asA14l+hubIhqqC4DS+UbsQc9Bpeq005S2g1vFx8c7LQani5uuikIWhohnR5wI3yqaOHnOG8ZLQpxVv1YYd1p5jhuiZOKN4sgNsrShl+F/0xxfsVfjtFoRE/yGqcfkdQwhgqyrRhmLY5tiJJjWbwvkfEcJeXOjyoNEWoVrYND4m3UJGqyla2DU+ZxUCRqoxY1DCWOv3pbsjqpCUNo4LfVqQrBBc0jAquioaylF/OMCG4KlKW8j9vmBjxk4LUSLUhm6CUIZ+gkCGjoIwhp6CIIaughCGvoIAhsyC/Ibcg+4jPLsjdhvyCzIYCgryGEoK8hoV93u83lDn+i9VQ4iGFIQwrDN2fN/z7bQhDGMIQhjCEYdnwvxrxPyKnljIadn6QgNOwMxKwGgoDwxZgKAMMW4ChDE/N2kiCoyA4eYTgPO/t/PPluyc6COrICc5kDybZ1jodhPP+u4LFg1qkofjXyR9jIgzFaaKl84Rkoen9FDci1Tmb0h5JqM6gNFo7m2R5zgVFbd8kW5nHZzJOx0MowNqhHHiL4+h2H7ARZvl4HvUHAtfD1yfpycyX6TPSfwCxE8o+JXhADwAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAs/ANyGFT0fw3sTAAAAABJRU5ErkJggg==" />
+                <p><%= f.filename %></p>
+                </div>
+                <% end %>
+                <% elsif [".pdf"].include? f.filename.extension_with_delimiter %>
+                  <%= link_to rails_blob_path(f, disposition: :attachment), target: "_blank" do %>
+                  <div class="col-md-2">
+                  <img style="height:100px; margin-bottom: 10px" src="data:image/png;base64,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" />
+                  <p><%= f.filename %></p>
+                  </div>
+                  <% end %>
+              <% else %>
+                <%= link_to rails_blob_path(f, disposition: :attachment), target: "_blank" do %>
+                <div class="col-md-2">
+                <img style="height:100px; margin-bottom: 10px" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAIYAAACGCAMAAAAvpwKjAAAAV1BMVEX///8VnNgAmdeTzuuq2O/w+fxFrt8AldX4/P7p9vvs9fvY7vgSn9m64fJWrt8+rN7I6PUvpdxRsuC13fG/4PJ8wOXi8vqJyeqi1O5muuR7xOdzwObR6/dgp2QiAAACi0lEQVR4nO3c65qCIBAGYBzztOoaZBrV/V/n1pOaPGkBM3ba+f4v+4YJEwpCTKbeVgE+0KbTzdslVwAEipMjRDjWkgZxzs5b0RAqwN/R0inOKf0Umew/CSbX/pC1F6PumqhiVIqrY+3D2F0YuokwydTQIVDlHozw8vcrn49wTapG10V5OOgZAcTZOzAC0M6OJRgBHKJXMmTcaWDvOKyTMqpa973i6KDtjbwZ+sNtWCdmiLzqHU5NUjMGBzi1Sc4YCgcoHKYXeoYoC3CeXhZgiDLoHcdXMsSq/5pK2+F0EUbf6mm6tRxOl2GIXVeAgLLrD1JGsQ27tENRp636g3Zqg6TLqPzY2gzri8ywRqyG9ScwwqcxhH4PxiaYdTyTkYbyHRhCHDc32b+AMZEVM5ixBCMr/VMb8xiGUUrMQkfc0DCieH5Ytgi0NIwMtxQGh9G0jrkohwRzUZINTW+ILPz1jzLuONwNmyJitP0N4wYzmMEMZnwqI/OP+esdw2j2lX9UOIagJnrMPA/Gaujnlz3RnSUCG8b4f+JK4gQRqpL41B/52jvm462vGDeYwQxmMOMzGVHun8b4EYthHJUsvCMPRGXPvWcBjwMJ0UQfza592zmIyp5UJYjugGT8DAdVEmvpn8p4Hw91p6TNO9wphGEGM5jBjP/ISH8QIWPk2r/skbKlKns0brWHaKLPkGWPJip77ryJYRGqIlCslX9FXEjjvdmX/UDIuexhBjOYwQxmMIMZzGAGM5jBDGYwgxn/lUGzgX0yjb4wbLZQEW3nn0p3mAbYbASlOdxgMl3DdvseiY96uImxHWA+lAdfTClk89hwDuUxIBMK6625ZIei3CLczlugOSLmJtV25ib5A1mkV618juRyAAAAAElFTkSuQmCC" />
+                <p><%= f.filename %></p>
+                </div>
+                <% end %>
+              <% end %>
+            <% end %>
+            </div>
+            <div class="container">
+  <div class="accordion-option">
+    <h3 class="title">All thread</h3>
+    <a href="javascript:void(0)" class="toggle-accordion active" accordion-id="#accordion"></a>
+  </div>
+  <div class="clearfix"></div>
+  <div class="panel-group" id="accordion" role="tablist" aria-multiselectable="true">
+  <% @project.CustomThreads.each do |thread|%>
+    <div class="panel panel-default">
+      <div class="panel-heading" style="padding: 12px 0px;" role="tab" id="headingThree_<%= thread.id %>">
+        <h4 class="panel-title">
+        <a class="collapsed" role="button" data-toggle="collapse" data-parent="#accordion" href="#collapseThree_<%= thread.id %>" aria-expanded="true" aria-controls="collapseThree_<%= thread.id %>">
+          <%= thread.title %>
+        </a>
+      </h4>
+      
+      </div>
+      <div id="collapseThree_<%= thread.id %>" class="panel-collapse collapse in" role="tabpanel" aria-labelledby="headingThree_<%= thread.id %>">
+        <div class="panel-body" style="
+        box-shadow: rgba(0, 0, 0, 0.11) 0 15px 30px 0px, rgba(0, 0, 0, 0.08) 0 5px 15px 0 !important;
+    ">
+          <div class="row">
+          
+        <span style="margin-left:12px">
+          <a href="/custom_threads/<%= thread.id %>?project_id=<%= thread.project_id %>" data-confirm="Are you sure?" data-method="delete" style="color:#fff" class="btn btn-danger btn-sm"><i class="fa fa-trash aria-hidden='true'"></i> Delete</a> 
+          | <a href="<%= edit_custom_thread_path(:id => thread.id, :project_id => thread.project_id)%>" style="color:#fff" class="btn btn-primary btn-sm"><i class="fa fa-pencil-square-o"></i> Edit</a></span>
+                <div class="col-md-12" style="height: 300px; overflow-y: scroll;">
+                    <div class="comment-container theme--light" style="width:100%">
+                      <div class="comments" >
+                        <div class="card v-card v-sheet theme--light elevation-2" style="padding:0px 0px" ><span class="headline" >Leave a comment</span>
+                          <div class="sign-in-wrapper" >
+                            <p class="caption disclaimer" ></p>
+                            <p class="error-message" ></p>
+                          </div>
+                          <!---->
+                        </div>
+                        <% Comment.all.each do |comment| %>
+                        <% if thread.id  == comment.custom_thread_id %>
+                          <div  class="card v-card v-sheet theme--light elevation-2" style="padding:0px 0px">
+                            <div  class="header">
+                              <div  class="v-avatar avatar" style="height: 50px; width: 50px;"><img  src="https://images.unsplash.com/photo-1490894641324-cfac2f5cd077?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=100&q=70"></div>
+                              <span  class="displayName title"><%= comment.user.username.capitalize  %></span> <span  class="displayName caption"><%= time_ago_in_words(comment.created_at) %></span></div>
+                            <!---->
+                            <div  class="wrappers comment">
+                              <p><%= comment.comment %></p>
+                              <hr>
+                              <a href="/comments/<%= comment.id %>" data-method="delete" style="color:red" data-confirm="Are you sure?">Delete</a> | 
+                              <a href="<%= edit_comment_path(:id => comment.id)%>" style="color:blue">Edit</a>
+                            </div>
+                            <div  class="actions">
+                              <!---->
+                              <!---->
+                              <!---->
+                            </div>
+                            <div  class="v-dialog__container" style="display: block;"></div>
+                          </div>
+                          <!---->
+                          <div  class="answers">
+                            <!---->
+                          </div>
+                        <% end %>
+                        <% end %>
+                      </div>
+                    </div>
+                </div>  
+                <div class="col-md-12">
+                <%= render 'form_comment', comment: @comment, thread_id: thread.id, user_id: session[:user_id] %>
+                </div>  
+            </div>
+        </div>
+      </div>
+    </div>
+  <% end %>
+  </div>
+</div>
+            
+            
+          </div>
+      </div>
+    </div>
+</div>
+</div>
+</div>
+
+<ul>
+  <% @project.file.each do |f| %>
+    <li>
+      <%#= image_tag f %>
+    </li>
+  <% end %>
+</ul>
+<!-- /.container-fluid -->
+<footer class="footer text-center"> 2020 &copy; Basecamp1 brought to you by outsoureceglobal.com </footer>
+</div>
+<%= javascript_pack_tag 'remodal' %>
+
+<%= javascript_pack_tag 'fileinput' %>
+<%= javascript_pack_tag 'es' %>
+<%= javascript_pack_tag 'comment' %>
+
+
+
+
+

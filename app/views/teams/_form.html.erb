@@ -1,0 +1,50 @@
+<%= form_with(model: team, local: true) do |form| %>
+  <% if team.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(team.errors.count, "error") %> prohibited this team from being saved:</h2>
+
+      <ul>
+        <% team.errors.full_messages.each do |message| %>
+          <li><%= message %></li>
+        <% end %>
+      </ul>
+    </div>
+  <% end %>
+  <% if flash[:access_error] %>
+          <div class="alert alert-danger">
+            <strong>Sorry!</strong> <%= flash[:access_error] %>
+          </div>
+  <% end %>
+  <div class="field">
+    <%#= form.label :project_id %>
+    <%= form.hidden_field :project_id, value: project_id %>
+  </div>
+
+  <div class="field">
+  <%= form.select :user_id, options_for_select(@users), {}, {class: 'form-control'} %>
+  </div>
+
+  <div class="field">
+    <%= form.check_box :read_access, :id => 'read'%>
+    <label for="read">Read Access</label>
+  </div>
+
+  <div class="field">
+    <%= form.check_box :write_access, :id => 'write'%>
+    <label for="write">Write Access</label>
+  </div>
+
+  <div class="field">
+    <%= form.check_box :update_access, :id => 'update'%>
+    <label for="update">Update Access</label>
+  </div>
+
+  <div class="field">
+    <%= form.check_box :delete_access, :id => 'delete'%>
+    <label for="delete">Delete Access</label>
+  </div>
+
+  <div class="actions">
+    <%= form.submit %>
+  </div>
+<% end %>

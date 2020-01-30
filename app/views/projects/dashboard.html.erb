@@ -1,0 +1,156 @@
+<div id="page-wrapper">
+<div class="container-fluid">
+    <div class="row bg-title">
+        <div class="col-lg-3 col-md-4 col-sm-4 col-xs-12">
+            <h4 class="page-title">Dashboard</h4> </div>
+        <div class="col-lg-9 col-sm-8 col-md-8 col-xs-12">
+            <ol class="breadcrumb">
+                <li><a href="#">Dashboard</a></li>
+            </ol>
+        </div>
+        <!-- /.col-lg-12 -->
+    </div>
+    <!-- /.row -->
+    <!-- ============================================================== -->
+    <!-- Different data widgets -->
+    <!-- ============================================================== -->
+    <!-- .row -->
+    <div class="row">
+        <div class="col-lg-4 col-sm-6 col-xs-12">
+            <div class="white-box analytics-info">
+                <h3 class="box-title">Total Users</h3>
+                <ul class="list-inline two-part">
+                    <li>
+                        <div id="sparklinedash"></div>
+                    </li>
+                    <li class="text-right"><i class="ti-arrow-up text-success"></i> <span class="counter text-success"><%= @users.size%></span></li>
+                </ul>
+            </div>
+        </div>
+        <div class="col-lg-4 col-sm-6 col-xs-12">
+            <div class="white-box analytics-info">
+                <h3 class="box-title">Total Projects Created</h3>
+                <ul class="list-inline two-part">
+                    <li>
+                        <div id="sparklinedash2"></div>
+                    </li>
+                    <li class="text-right"><i class="ti-arrow-up text-purple"></i> <span class="counter text-purple"><%= @projects.size%></span></li>
+                </ul>
+            </div>
+        </div>
+        <div class="col-lg-4 col-sm-6 col-xs-12">
+            <div class="white-box analytics-info">
+                <h3 class="box-title">Total Project Shared</h3>
+                <ul class="list-inline two-part">
+                    <li>
+                        <div id="sparklinedash3"></div>
+                    </li>
+                    <li class="text-right"><i class="ti-arrow-up text-info"></i> <span class="counter text-info"><%= @shared.size%></span></li>
+                </ul>
+            </div>
+        </div>
+    </div>
+    <!--/.row -->
+    <!--row -->
+    <!-- /.row -->
+    <!-- ============================================================== -->
+    <!-- table -->
+    <!-- ============================================================== -->
+    <div class="row">
+        <div class="col-md-12 col-lg-12 col-sm-12">
+            <div class="white-box">
+                <h3 class="box-title">All users</h3>
+                <div class="table-responsive">
+                    <table class="table">
+                        <thead>
+                            <tr>
+                                <th>#</th>
+                                <th>USERNAME</th>
+                                <th>EMAIL</th>
+                                <th>ROLES</th>
+                                <th>ACTION</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <% 
+                            count = 1
+                            @users.each do |user|
+                            if user.admin_access == @admin
+                                text = "Admin"
+                                clas = "danger"
+                            else
+                                text = "User"
+                                clas = "success"
+                            end
+                            %>
+                            <tr>
+                                <td><%= count %></td>
+                                <td class="txt-oflo"><%= user.username %></td>
+                                <td><%= user.email %></td>
+                                <td class="txt-oflo"><button class="btn btn-<%= clas %> btn-sm"><%= text %></button></td>
+                                <td><span class="text-success">
+                                <%= link_to 'Show', user_path(user) %> | <%= link_to 'Projects', projects_path(user.id) %> | 
+                                <%= link_to 'Edit', edit_user_path(user) %>
+                                </span></td>
+                            </tr>
+                            <%
+                            count = count + 1
+                            end %>
+                            
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- ============================================================== -->
+    <!-- chat-listing & recent comments -->
+    <!-- ============================================================== -->
+    <div class="row">
+        <!-- .col -->
+        <div class="col-md-12 col-lg-12 col-sm-12">
+            <div class="white-box">
+            <h3 class="box-title">Latest PROJECTS</h3>
+            <div class="table-responsive">
+                <table class="table">
+                    <thead>
+                        <tr>
+                            <th>#</th>
+                            <th>TITLE</th>
+                            <th>DESCRIPTION</th>
+                            <th>AUTHOR</th>
+                            <th>DATE CREATED</th>
+                            <th>ACTION</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <% 
+                        count = 1
+                        @projects.each do |p|
+                        %>
+                        <tr>
+                            <td><%= count %></td>
+                            <td class="txt-oflo"><%= p.title.titleize %></td>
+                            <td><%= p.description.slice(0,1).capitalize + p.description.slice(1..-1) %></td>
+                            <td class="txt-oflo"><%= p.user.username %></td>
+                            <td class="txt-oflo"><i><%= p.created_at.strftime(" %B %d, %Y") %></i></td>
+                            <td><span class="text-success">
+                            <%= link_to 'Show', project_path(p) %> | <%= link_to 'Edit', edit_project_path(p) %> | <%= link_to 'Delete', p, method: :delete, data: { confirm: 'Are you sure?' } %> 
+                            
+                            </span></td>
+                        </tr>
+                        <%
+                        count = count + 1
+                        end %>
+                        
+                    </tbody>
+                </table>
+            </div>
+            </div>
+        </div>
+        <!-- /.col -->
+    </div>
+</div>
+<!-- /.container-fluid -->
+<footer class="footer text-center"> 2020 &copy; Basecamp1 brought to you by outsoureceglobal.com </footer>
+</div>

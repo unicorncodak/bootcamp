@@ -1,0 +1,2 @@
+class Admincontrol < ApplicationRecord
+end

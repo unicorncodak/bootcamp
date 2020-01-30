@@ -1,0 +1,22 @@
+<div class="wrapper">
+
+<%= form_tag sessions_path, {:class => 'form-signin'} do |form| %>
+  <h2 class="form-signin-heading">Please login</h2>
+  <p id="alert" style="color:red"><%= alert %></p>
+  <div class="field">
+    <%= label_tag :username %>
+    <%= text_field_tag :username, "", class: 'form-control' %>
+  </div>
+  <div class="field">
+    <%= label_tag :password %>
+    <%= password_field_tag :password, "", class: 'form-control' %>
+  </div>
+  <label class="checkbox">
+    <input type="checkbox" value="remember-me" id="rememberMe" name="rememberMe"> Remember me
+  </label>
+  <div class="actions">
+    <%= submit_tag "Login", class: 'btn btn-lg btn-primary btn-block' %>
+  </div>
+  <%= link_to "Dont't have an account yet?", new_user_path %>
+<% end %>
+</div>

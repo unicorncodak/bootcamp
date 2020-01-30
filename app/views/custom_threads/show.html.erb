@@ -1,0 +1,14 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Title:</strong>
+  <%= @custom_thread.title %>
+</p>
+
+<p>
+  <strong>Project:</strong>
+  <%= @custom_thread.project_id %>
+</p>
+
+<%= link_to 'Edit', edit_custom_thread_path(@custom_thread) %> |
+<%= link_to 'Back', custom_threads_path %>
