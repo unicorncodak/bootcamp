@@ -49,6 +49,5 @@ test:
 #
 production:
   <<: *default
-  database: railApp_production
-  username: railApp
-  password: <%= ENV['RAILAPP_DATABASE_PASSWORD'] %>
+  adapter: postgresql
+  database: db/production.sqlite3
