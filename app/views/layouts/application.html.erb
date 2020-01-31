@@ -7,9 +7,6 @@
     <meta name="description" content="<%= content_for?(:description) ? yield(:description) : "Basecamp" %>">
     <%= csrf_meta_tags %>
     <%= csp_meta_tag %>
-
-    <%= stylesheet_link_tag 'application', media: 'all', 'data-turbolinks-track': 'reload' %>
-    <%= javascript_pack_tag 'application', 'data-turbolinks-track': 'reload' %>
   </head>
 
   <body class="fix-header">
@@ -97,5 +94,9 @@
     <% end %>
     <%= yield %>
   </div>
+  
+  <%= javascript_pack_tag 'sidebar-nav' %>
+  <%= javascript_pack_tag 'custom' %>
+  <%= javascript_pack_tag 'dashboard1' %>
   </body>
 </html>
