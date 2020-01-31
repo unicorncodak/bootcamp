@@ -1,0 +1,143 @@
+/* line 4, app/assets/stylesheets/users.scss */
+body, html {
+  margin: 0px;
+  padding: 0px;
+  position: relative;
+  font-family: 'Rubik', san-serif;
+}
+
+/* line 11, app/assets/stylesheets/users.scss */
+* {
+  margin: 0px;
+  padding: 0px;
+}
+
+/* line 16, app/assets/stylesheets/users.scss */
+.form-wrapper {
+  padding-top: 20px;
+  margin: 0px auto;
+  max-width: 500px;
+}
+
+/* line 22, app/assets/stylesheets/users.scss */
+.myform {
+  width: 100%;
+  border: 2px solid #CDCDCD;
+  box-shadow: 0px 3px 5px -1px rgba(0, 0, 0, 0.2);
+  padding: 20px 30px;
+  box-sizing: border-box;
+  background-color: #ffffff;
+}
+
+/* line 30, app/assets/stylesheets/users.scss */
+.myform h1 {
+  text-align: center;
+  font-weight: 700;
+  text-transform: uppercase;
+  color: #333;
+  margin-bottom: 20px;
+}
+
+/* line 38, app/assets/stylesheets/users.scss */
+.myform .input-wrapper {
+  position: relative;
+  margin-bottom: 30px;
+  z-index: 3;
+}
+
+/* line 43, app/assets/stylesheets/users.scss */
+.myform .input-wrapper label {
+  position: absolute;
+  left: 10px;
+  top: 9px;
+  color: #CDCDCD;
+  transition: all 0.15s linear;
+  z-index: -1;
+}
+
+/* line 52, app/assets/stylesheets/users.scss */
+.myform .input-wrapper.active label {
+  left: 0px;
+  top: -22px;
+  color: #333333;
+}
+
+/* line 58, app/assets/stylesheets/users.scss */
+.myform .input-wrapper input {
+  width: 100%;
+  padding: 10px;
+  box-sizing: border-box;
+  border: 1px solid #CDCDCD;
+  background-color: transparent;
+}
+
+/* line 67, app/assets/stylesheets/users.scss */
+.myform .check {
+  margin-bottom: 20px;
+  position: relative;
+}
+
+/* line 71, app/assets/stylesheets/users.scss */
+.myform .check input {
+  position: absolute;
+  top: 0px;
+  left: 0px;
+  opacity: 0;
+  z-index: -1;
+}
+
+/* line 79, app/assets/stylesheets/users.scss */
+.myform .check label {
+  position: relative;
+  padding-left: 20px;
+  cursor: pointer;
+}
+
+/* line 84, app/assets/stylesheets/users.scss */
+.myform .check label::before {
+  position: absolute;
+  content: '';
+  top: 4px;
+  left: 0px;
+  height: 12px;
+  width: 12px;
+  border: 1px solid;
+  border-radius: 50%;
+  box-sizing: border-box;
+}
+
+/* line 96, app/assets/stylesheets/users.scss */
+.myform .check label::after {
+  position: absolute;
+  content: '';
+  top: 4px;
+  left: 0px;
+  height: 12px;
+  width: 12px;
+  background: #222;
+  border-radius: 50%;
+  box-sizing: border-box;
+  transform: scale(0);
+  transition: all 0.2s linear;
+}
+
+/* line 111, app/assets/stylesheets/users.scss */
+.myform .check input:checked ~ label::after {
+  transform: scale(0.7);
+}
+
+/* line 116, app/assets/stylesheets/users.scss */
+.myform .submit {
+  display: inline-block;
+  border: none;
+  width: 120px;
+  height: 35px;
+  text-transform: uppercase;
+  font-weight: 500;
+  font-size: 16px;
+  color: #fff;
+  background: #333333;
+  font-family: 'Rubik', serif;
+  cursor: pointer;
+  box-shadow: 0px 1px 1px rgba(0, 0, 0, 0.5);
+}

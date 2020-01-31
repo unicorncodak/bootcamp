@@ -1,0 +1,67 @@
+/* line 4, app/assets/stylesheets/projects.scss */
+.glyphicon {
+  margin-right: 5px;
+}
+
+/* line 5, app/assets/stylesheets/projects.scss */
+.thumbnail {
+  margin-bottom: 20px;
+  padding: 0px;
+  -webkit-border-radius: 0px;
+  -moz-border-radius: 0px;
+  border-radius: 0px;
+}
+
+/* line 14, app/assets/stylesheets/projects.scss */
+.item.list-group-item {
+  float: none;
+  width: 100%;
+  background-color: #fff;
+  margin-bottom: 10px;
+}
+
+/* line 21, app/assets/stylesheets/projects.scss */
+.item.list-group-item:nth-of-type(odd):hover, .item.list-group-item:hover {
+  background: #428bca;
+}
+
+/* line 26, app/assets/stylesheets/projects.scss */
+.item.list-group-item .list-group-image {
+  margin-right: 10px;
+}
+
+/* line 30, app/assets/stylesheets/projects.scss */
+.item.list-group-item .thumbnail {
+  margin-bottom: 0px;
+}
+
+/* line 34, app/assets/stylesheets/projects.scss */
+.item.list-group-item .caption {
+  padding: 9px 9px 0px 9px;
+}
+
+/* line 38, app/assets/stylesheets/projects.scss */
+.item.list-group-item:nth-of-type(odd) {
+  background: #eeeeee;
+}
+
+/* line 43, app/assets/stylesheets/projects.scss */
+.item.list-group-item:before, .item.list-group-item:after {
+  display: table;
+  content: " ";
+}
+
+/* line 49, app/assets/stylesheets/projects.scss */
+.item.list-group-item img {
+  float: left;
+}
+
+/* line 53, app/assets/stylesheets/projects.scss */
+.item.list-group-item:after {
+  clear: both;
+}
+
+/* line 57, app/assets/stylesheets/projects.scss */
+.list-group-item-text {
+  margin: 0 0 11px;
+}
